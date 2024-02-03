@@ -23,9 +23,23 @@ function createTxtNode(txt) {
 
 function addTable() {
   const tableNode = document.createElement("table");
-  for(let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     let col1 = createTDNode(createTxtNode("Cell (" + i + ", 0)"));
-    tableNode.appendChild(createTRNode([col1]));
+    
+    let btn = document.createElement("button");
+    btn.innerHTML = "Edit text";
+    btn.onclick = function() {
+      let tdNode = this.parentNode.previousElementSibling;
+      let input = document.createElement("input");
+      input.type = "text";
+      input.value = tdNode.textContent;
+      tdNode.innerHTML = '';
+      tdNode.appendChild(input); 
+    };
+    
+    let col2 = createTDNode(btn);
+    
+    tableNode.appendChild(createTRNode([col1, col2]));
   }
   document.getElementById("root").appendChild(tableNode);
 }
